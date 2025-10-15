@@ -94,3 +94,18 @@ app.delete('/biodata/:id', (req, res) => {
         res.status(200).json({ message: 'Biodata deleted successfully' });
     });
 });
+
+app.use((req, res, next) => {
+    res.status(404).json({
+        status: 'error',
+        message: 'Resource not found'
+    });
+});
+
+app.use((err, req, res, next) => {
+    console.error(err.stack);
+    res.status(500).json({
+        status: 'error',
+        message: 'Internal Server Error'
+    });
+});
